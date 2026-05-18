@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#ffffff">
+    <title>カテゴリー一覧 | お城クイズ</title>
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <svg class="svg-defs" aria-hidden="true">
+      <symbol id="icon-castle" viewBox="0 0 92 72">
+        <path d="M18 61h56M24 51h44M30 42h32M11 62l7-13h56l7 13M22 49l7-18h34l7 18M33 40l5-19h16l5 19M17 31h58M26 22h40M35 13h22M40 13l6-7 6 7M24 31l8-9 8 9M52 31l8-9 8 9M34 61V50h24v11M41 61V51M51 61V51" />
+      </symbol>
+      <symbol id="icon-book" viewBox="0 0 80 80">
+        <path d="M22 15h30a8 8 0 0 1 8 8v42H30a8 8 0 0 0-8 8V15Z" />
+        <path d="M22 15v58M30 26h20M30 36h17M30 46h14M58 22h7v44h-7" />
+        <circle cx="22" cy="63" r="10" />
+      </symbol>
+      <symbol id="icon-camera" viewBox="0 0 80 80">
+        <path d="M15 28h14l5-8h14l5 8h12v32H15V28Z" />
+        <circle cx="40" cy="44" r="12" />
+        <path d="M20 35h8" />
+      </symbol>
+      <symbol id="icon-grid" viewBox="0 0 80 80">
+        <path d="M18 18h17v13H18zM45 18h17v13H45zM18 40h17v13H18zM45 40h17v13H45zM18 62h44" />
+      </symbol>
+      <symbol id="icon-crown" viewBox="0 0 80 80">
+        <path d="M18 56h44l5-30-16 14-11-20-11 20-16-14 5 30ZM22 64h36" />
+      </symbol>
+      <symbol id="icon-user" viewBox="0 0 80 80">
+        <circle cx="40" cy="28" r="12" />
+        <path d="M18 66a22 22 0 0 1 44 0" />
+      </symbol>
+    </svg>
+
+    <div class="scale-frame">
+      <main class="app category-app">
+        <header class="site-header home-header">
+          <button class="menu-button" type="button" aria-label="メニュー">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+          <a class="brand" href="./index.html" aria-label="お城クイズ ホーム">
+            <img class="brand-castle-img" src="./assets/castle_icon.png" alt="">
+            <span>お城クイズ</span>
+          </a>
+        </header>
+
+        <section class="category-page-content" aria-labelledby="category-page-heading">
+          <h1 id="category-page-heading" class="category-page-title">カテゴリー一覧</h1>
+          <p class="category-page-lead">挑戦したいカテゴリを選んでクイズに挑戦！</p>
+
+          <div class="category-card-list">
+            <article class="category-detail-card">
+              <span class="category-card-icon castle-image-icon"><img src="./assets/castle_icon.png" alt=""></span>
+              <div class="category-card-main">
+                <h2>現存12天守</h2>
+                <p>現存する12の天守に<br>関するクイズです。</p>
+                <div class="category-card-levels">
+                  <a class="level beginner level-link" href="./quiz-12-tenju-beginner.html">初級</a>
+                  <span class="level intermediate">中級</span>
+                  <span class="level advanced is-locked">上級</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="category-detail-card">
+              <span class="category-card-icon castle-image-icon"><img src="./assets/castle_icon.png" alt=""></span>
+              <div class="category-card-main">
+                <h2>100名城</h2>
+                <p>日本100名城に選定された<br>お城に関するクイズです。</p>
+                <div class="category-card-levels">
+                  <span class="level beginner">初級</span>
+                  <span class="level intermediate">中級</span>
+                  <span class="level advanced is-locked">上級</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="category-detail-card">
+              <span class="category-card-icon"><svg aria-hidden="true"><use href="#icon-camera"></use></svg></span>
+              <div class="category-card-main">
+                <h2>写真クイズ</h2>
+                <p>お城の写真を見て<br>答えるクイズです。</p>
+                <div class="category-card-levels">
+                  <a class="level beginner level-link" href="./photo-submit.html">初級</a>
+                  <span class="level intermediate is-locked">中級</span>
+                  <span class="level advanced is-locked">上級</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="category-detail-card category-coming-soon" aria-label="続100名城はComing soon">
+              <span class="category-card-icon castle-image-icon"><img src="./assets/castle_icon.png" alt=""></span>
+              <div class="category-card-main">
+                <h2>続100名城</h2>
+                <p>続日本100名城に選定された<br>お城に関するクイズです。</p>
+                <div class="category-card-levels">
+                  <span class="level beginner">初級</span>
+                  <span class="level intermediate">中級</span>
+                  <span class="level advanced">上級</span>
+                </div>
+              </div>
+              <span class="category-soon-badge">COMING SOON</span>
+            </article>
+
+            <article class="category-detail-card category-coming-soon" aria-label="その他の城はComing soon">
+              <span class="category-card-icon castle-image-icon"><img src="./assets/castle_icon.png" alt=""></span>
+              <div class="category-card-main">
+                <h2>その他の城</h2>
+                <p>名城からマイナーな城まで<br>幅広いお城のクイズです。</p>
+                <div class="category-card-levels">
+                  <span class="level beginner">初級</span>
+                  <span class="level intermediate">中級</span>
+                  <span class="level advanced">上級</span>
+                </div>
+              </div>
+              <span class="category-soon-badge">COMING SOON</span>
+            </article>
+          </div>
+        </section>
+
+        <nav class="bottom-nav" aria-label="主要ナビゲーション">
+          <a href="./index.html"><img class="nav-castle-img" src="./assets/castle_icon.png" alt=""><span>ホーム</span></a>
+          <a href="./categories.html" aria-current="page"><svg aria-hidden="true"><use href="#icon-grid"></use></svg><span>カテゴリ</span></a>
+          <a href="#review"><svg aria-hidden="true"><use href="#icon-book"></use></svg><span>復習</span></a>
+          <a href="#ranking"><svg aria-hidden="true"><use href="#icon-crown"></use></svg><span>ランキング</span></a>
+          <a href="#titles"><svg aria-hidden="true"><use href="#icon-user"></use></svg><span>称号</span></a>
+        </nav>
+      </main>
+    </div>
+
+    <script>
+      const frame = document.querySelector(".scale-frame");
+      const app = document.querySelector(".app");
+      const designWidth = 744;
+
+      function fitDesign() {
+        const scale = Math.min(window.innerWidth / designWidth, 1);
+        const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+        app.style.minHeight = `${viewportHeight / scale}px`;
+        app.style.transform = `scale(${scale})`;
+        frame.style.width = `${designWidth * scale}px`;
+        frame.style.height = `${app.scrollHeight * scale}px`;
+      }
+
+      window.addEventListener("resize", fitDesign);
+      window.addEventListener("load", fitDesign);
+      fitDesign();
+    </script>
+  </body>
+</html>
