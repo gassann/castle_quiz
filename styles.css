@@ -636,8 +636,7 @@ button:focus-visible {
 }
 
 .bottom-nav {
-  position: sticky;
-  bottom: 0;
+  position: relative;
   z-index: 4;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
