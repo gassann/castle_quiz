@@ -103,7 +103,7 @@
       <section class="section categories" id="categories" aria-labelledby="categories-heading">
         <h2 id="categories-heading" class="section-title">カテゴリーからクイズを選ぶ</h2>
         <div class="category-list">
-          <div class="category-row">
+          <div class="category-row" id="existing-12-tenju">
             <img class="category-row-castle-img" src="./assets/castle_icon.png" alt="">
             <span class="category-name">現存12天守</span>
             <a class="level beginner level-link" href="./quiz-12-tenju-beginner.html">初級</a>
@@ -111,37 +111,47 @@
             <span class="level advanced is-locked">上級</span>
             <strong aria-hidden="true">›</strong>
           </div>
-          <a class="category-row" href="#100-meijo">
+          <div class="category-row" id="100-meijo">
             <img class="category-row-castle-img" src="./assets/castle_icon.png" alt="">
             <span class="category-name">100名城</span>
             <span class="level beginner">初級</span>
             <span class="level intermediate">中級</span>
             <span class="level advanced is-locked">上級</span>
             <strong aria-hidden="true">›</strong>
-          </a>
-          <a class="category-row" href="#zoku-100-meijo">
-            <img class="category-row-castle-img" src="./assets/castle_icon.png" alt="">
-            <span class="category-name">続100名城</span>
-            <span class="level beginner">初級</span>
-            <span class="level intermediate">中級</span>
-            <span class="level advanced">上級</span>
-            <strong aria-hidden="true">›</strong>
-          </a>
-          <a class="category-row category-coming-soon" href="#other-castles" aria-label="その他の城はComing soon">
-            <img class="category-row-castle-img" src="./assets/castle_icon.png" alt="">
-            <span class="category-name">その他の城</span>
-            <span class="level beginner">初級</span>
-            <span class="level intermediate">中級</span>
-            <span class="level advanced">上級</span>
-            <span class="category-soon-badge">COMING SOON</span>
-            <strong aria-hidden="true">›</strong>
-          </a>
+          </div>
           <div class="category-row" id="photo-quiz">
             <svg aria-hidden="true"><use href="#icon-camera"></use></svg>
             <span class="category-name">写真クイズ</span>
             <a class="level beginner level-link" href="./photo-submit.html">初級</a>
             <span class="level intermediate is-locked">中級</span>
             <span class="level advanced is-locked">上級</span>
+            <strong aria-hidden="true">›</strong>
+          </div>
+          <div class="category-row category-coming-soon" id="castle-certification" aria-label="城郭検定　模擬試験はComing soon">
+            <img class="category-row-castle-img" src="./assets/castle_icon.png" alt="">
+            <span class="category-name">城郭検定　模擬試験</span>
+            <span class="level beginner">3級</span>
+            <span class="level intermediate">2級</span>
+            <span class="level advanced">1級</span>
+            <span class="category-soon-badge">COMING SOON</span>
+            <strong aria-hidden="true">›</strong>
+          </div>
+          <div class="category-row category-coming-soon" id="zoku-100-meijo" aria-label="続100名城はComing soon">
+            <img class="category-row-castle-img" src="./assets/castle_icon.png" alt="">
+            <span class="category-name">続100名城</span>
+            <span class="level beginner">初級</span>
+            <span class="level intermediate">中級</span>
+            <span class="level advanced">上級</span>
+            <span class="category-soon-badge">COMING SOON</span>
+            <strong aria-hidden="true">›</strong>
+          </div>
+          <div class="category-row category-coming-soon" id="other-castles" aria-label="その他の城はComing soon">
+            <img class="category-row-castle-img" src="./assets/castle_icon.png" alt="">
+            <span class="category-name">その他の城</span>
+            <span class="level beginner">初級</span>
+            <span class="level intermediate">中級</span>
+            <span class="level advanced">上級</span>
+            <span class="category-soon-badge">COMING SOON</span>
             <strong aria-hidden="true">›</strong>
           </div>
         </div>
