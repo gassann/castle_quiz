@@ -836,6 +836,226 @@ button:focus-visible {
   background: rgba(18, 58, 93, 0.92);
 }
 
+.ranking-app {
+  display: flex;
+  flex-direction: column;
+  background:
+    radial-gradient(circle at 50% 16%, rgba(79, 156, 220, 0.07), transparent 16rem),
+    linear-gradient(180deg, #fff 0, var(--paper) 100%);
+}
+
+.ranking-content {
+  flex: 1;
+  padding: 65px 31px 44px;
+}
+
+.ranking-content h1 {
+  margin: 0 0 26px;
+  color: var(--navy);
+  font-family: var(--serif);
+  font-size: 37px;
+  font-weight: 900;
+  text-align: center;
+}
+
+.ranking-unavailable {
+  margin: -10px 10px 28px;
+  padding: 13px 18px;
+  border-radius: 8px;
+  background: rgba(185, 149, 53, 0.12);
+  color: var(--gold-dark);
+  font-size: 15px;
+  font-weight: 900;
+  line-height: 1.65;
+  text-align: center;
+}
+
+.ranking-tabs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-bottom: 39px;
+  overflow: hidden;
+  border: 3px solid rgba(18, 58, 93, 0.28);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.ranking-tabs span {
+  display: grid;
+  place-items: center;
+  min-height: 72px;
+  color: var(--navy);
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.ranking-tabs .is-active {
+  background: linear-gradient(100deg, #063a66, #064a81);
+  color: #fff;
+}
+
+.ranking-list {
+  display: grid;
+  gap: 18px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ranking-item {
+  display: grid;
+  grid-template-columns: 66px 82px 1fr 158px;
+  align-items: center;
+  min-height: 83px;
+  color: var(--navy);
+}
+
+.ranking-item.top-rank {
+  min-height: 118px;
+}
+
+.rank-mark {
+  display: grid;
+  place-items: center;
+  justify-self: center;
+  width: 44px;
+  height: 44px;
+  border: 3px solid rgba(18, 58, 93, 0.12);
+  border-radius: 50%;
+  background: #fff;
+  color: var(--navy);
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.top-rank .rank-mark {
+  width: 55px;
+  height: 55px;
+  border: 0;
+  font-size: 29px;
+}
+
+.rank-gold .rank-mark {
+  background: rgba(185, 149, 53, 0.16);
+  color: var(--gold-dark);
+}
+
+.rank-silver .rank-mark {
+  background: rgba(111, 145, 175, 0.16);
+  color: #6f91af;
+}
+
+.rank-bronze .rank-mark {
+  background: rgba(187, 128, 89, 0.16);
+  color: #b77954;
+}
+
+.avatar {
+  display: grid;
+  place-items: center;
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  background: #eef1f3;
+  color: var(--navy);
+  font-family: var(--serif);
+  font-size: 24px;
+  font-weight: 900;
+  box-shadow: inset 0 0 0 4px rgba(255, 255, 255, 0.82);
+}
+
+.avatar.small {
+  width: 45px;
+  height: 45px;
+  font-size: 18px;
+}
+
+.player {
+  display: grid;
+  gap: 7px;
+  min-width: 0;
+}
+
+.player b {
+  overflow: hidden;
+  color: var(--navy);
+  font-family: var(--serif);
+  font-size: 23px;
+  font-weight: 900;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.player small {
+  color: var(--navy);
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.ranking-item strong {
+  justify-self: end;
+  color: var(--navy);
+  font-family: var(--serif);
+  font-size: 32px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.ranking-item strong span {
+  margin-left: 2px;
+  font-size: 18px;
+}
+
+.ranking-more {
+  display: grid;
+  place-items: center;
+  width: 420px;
+  min-height: 73px;
+  margin: 40px auto 50px;
+  border: 3px solid rgba(18, 58, 93, 0.24);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--navy);
+  font-size: 21px;
+  font-weight: 900;
+}
+
+.ranking-more:disabled {
+  opacity: 0.72;
+}
+
+.ranking-my-card {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  min-height: 132px;
+  padding: 25px 20px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.86);
+  box-shadow: var(--shadow);
+}
+
+.ranking-my-card div {
+  display: grid;
+  place-items: center;
+  gap: 11px;
+  color: var(--navy);
+}
+
+.ranking-my-card div + div {
+  border-left: 2px solid rgba(18, 58, 93, 0.1);
+}
+
+.ranking-my-card span {
+  font-size: 17px;
+  font-weight: 900;
+}
+
+.ranking-my-card strong {
+  font-family: var(--serif);
+  font-size: 34px;
+  font-weight: 900;
+}
+
 .quiz-app {
   display: flex;
   flex-direction: column;
