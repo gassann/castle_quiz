@@ -641,8 +641,8 @@ button:focus-visible {
   z-index: 4;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  height: 114px;
-  padding: 18px 18px 13px;
+  height: 128px;
+  padding: 19px 18px 15px;
   background: linear-gradient(110deg, #052c4d, #08385f 48%, #062c4d);
   box-shadow: 0 -7px 19px rgba(4, 35, 62, 0.15);
 }
@@ -651,9 +651,9 @@ button:focus-visible {
   display: grid;
   justify-items: center;
   align-content: center;
-  gap: 5px;
+  gap: 7px;
   color: rgba(255, 255, 255, 0.86);
-  font-size: 15px;
+  font-size: 19px;
   font-weight: 900;
 }
 
@@ -662,8 +662,8 @@ button:focus-visible {
 }
 
 .bottom-nav svg {
-  width: 31px;
-  height: 31px;
+  width: 39px;
+  height: 39px;
   fill: none;
   stroke: currentColor;
   stroke-width: 4;
@@ -673,8 +673,8 @@ button:focus-visible {
 
 .nav-castle-img {
   display: block;
-  width: 32px;
-  height: 28px;
+  width: 40px;
+  height: 34px;
   object-fit: contain;
   filter: brightness(0) invert(1);
   opacity: 0.88;
