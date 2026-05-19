@@ -1090,6 +1090,193 @@ button:focus-visible {
   font-weight: 900;
 }
 
+.titles-app {
+  display: flex;
+  flex-direction: column;
+  background:
+    radial-gradient(circle at 50% 13%, rgba(90, 177, 118, 0.07), transparent 15rem),
+    linear-gradient(180deg, #fff 0, var(--paper) 100%);
+}
+
+.titles-content {
+  position: relative;
+  flex: 1;
+  padding: 31px 22px 40px;
+}
+
+.titles-content.is-under-construction::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: rgba(255, 255, 255, 0.62);
+  pointer-events: none;
+}
+
+.titles-content.is-under-construction::after {
+  content: "準備中";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  min-width: 310px;
+  min-height: 94px;
+  border: 4px solid rgba(255, 255, 255, 0.92);
+  border-radius: 999px;
+  background: rgba(6, 58, 102, 0.92);
+  color: #fff;
+  font-family: var(--serif);
+  font-size: 42px;
+  font-weight: 900;
+  letter-spacing: 0;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 12px 26px rgba(5, 31, 52, 0.24);
+  pointer-events: none;
+}
+
+.titles-content h1 {
+  margin: 0 0 16px;
+  color: var(--navy);
+  font-family: var(--serif);
+  font-size: 31px;
+  font-weight: 900;
+  text-align: center;
+}
+
+.titles-unavailable {
+  margin: 0 8px 17px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  background: rgba(185, 149, 53, 0.12);
+  color: var(--gold-dark);
+  font-size: 14px;
+  font-weight: 900;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.title-tabs {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 13px;
+  margin-bottom: 17px;
+}
+
+.title-tabs span {
+  display: grid;
+  place-items: center;
+  min-height: 43px;
+  border: 2px solid rgba(18, 58, 93, 0.08);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--navy);
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.title-tabs .is-active {
+  background: linear-gradient(100deg, #063a66, #064a81);
+  color: #fff;
+}
+
+.title-list {
+  display: grid;
+  gap: 10px;
+}
+
+.title-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 89px 1fr 82px;
+  align-items: center;
+  min-height: 103px;
+  padding: 15px 14px 15px 17px;
+  overflow: hidden;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: var(--shadow);
+  color: var(--navy);
+}
+
+.title-icon {
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  color: #78828c;
+}
+
+.title-icon img {
+  width: 55px;
+  height: auto;
+}
+
+.title-icon svg {
+  width: 52px;
+  height: 52px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 3.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.title-green .title-icon {
+  color: var(--green);
+}
+
+.title-blue .title-icon {
+  color: var(--navy);
+}
+
+.title-red .title-icon {
+  color: #d9825e;
+}
+
+.title-card h2 {
+  margin: 0 0 5px;
+  color: var(--navy);
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.title-card p {
+  margin: 0 0 6px;
+  color: var(--navy);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.title-card small {
+  color: var(--navy);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.title-card b {
+  justify-self: center;
+  color: var(--navy);
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.title-card strong {
+  display: grid;
+  place-items: center;
+  justify-self: center;
+  width: 70px;
+  height: 70px;
+  border: 3px dashed var(--gold);
+  border-radius: 50%;
+  color: var(--gold-dark);
+  font-size: 16px;
+  font-weight: 900;
+  transform: rotate(-18deg);
+}
+
 .quiz-app {
   display: flex;
   flex-direction: column;
