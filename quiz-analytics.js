@@ -22,7 +22,7 @@ async function initFirestore() {
 
   const { firebaseConfig } = await import('./firebase-config.js');
   const app = getApps().length ? getApps()[0] : initializeApp(firebaseConfig);
-  const db = getFirestore(app);
+  const db = getFirestore(app, 'oshiroquiz');
 
   // 回答を記録する（クイズJSから呼び出す）
   window.recordAnswer = async function ({ question, group, difficulty, isCorrect }) {
