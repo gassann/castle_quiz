@@ -163,7 +163,7 @@ button:focus-visible {
   min-height: 437px;
   overflow: hidden;
   background:
-    linear-gradient(90deg, rgba(255, 255, 255, 0.98) 0%, rgba(255, 255, 255, 0.9) 39%, rgba(255, 255, 255, 0.46) 55%, rgba(255, 255, 255, 0) 72%),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.98) 0%, rgba(255, 255, 255, 0.9) 52%, rgba(255, 255, 255, 0.46) 68%, rgba(255, 255, 255, 0) 84%),
     linear-gradient(180deg, #dff1ff 0%, #fff 100%);
 }
 
@@ -180,7 +180,7 @@ button:focus-visible {
 .hero-castle {
   position: absolute;
   inset: 0 0 0 auto;
-  width: 399px;
+  width: 370px;
   background: url("./assets/hero-castle.png") right top / 399px 437px no-repeat;
 }
 
@@ -188,21 +188,41 @@ button:focus-visible {
   position: relative;
   z-index: 1;
   width: 55%;
-  padding: 35px 0 0 37px;
+  padding: 40px 0 0 37px;
 }
 
 .hero-kicker {
-  margin: 0 0 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: max-content;
+  margin: 2px auto 24px;
   color: #10131b;
   font-family: var(--serif);
-  font-size: 22px;
+  font-size: 19px;
   font-weight: 900;
-  line-height: 1.58;
+  line-height: 1.48;
   text-align: center;
+  transform: translateX(-34px);
 }
 
 .hero-kicker::before,
-.hero-kicker::after,
+.hero-kicker::after {
+  content: "";
+  flex: 0 0 auto;
+  width: 22px;
+  height: 22px;
+  background:
+    linear-gradient(52deg, transparent 45%, var(--gold) 47% 54%, transparent 56%),
+    linear-gradient(20deg, transparent 45%, var(--gold) 47% 54%, transparent 56%);
+  opacity: 0.78;
+}
+
+.hero-kicker::before {
+  transform: scaleX(-1);
+}
+
 .section-title::before,
 .section-title::after {
   content: "";
@@ -336,6 +356,26 @@ button:focus-visible {
   stroke-width: 3.3;
   stroke-linecap: round;
   stroke-linejoin: round;
+}
+
+.feature-icon-img {
+  display: block;
+  object-fit: contain;
+}
+
+.castle-feature-icon {
+  width: 70px;
+  height: 58px;
+}
+
+.map-feature-icon {
+  width: 70px;
+  height: 62px;
+}
+
+.level-feature-icon {
+  width: 70px;
+  height: 65px;
 }
 
 .japan-mark {
@@ -790,6 +830,19 @@ button:focus-visible {
   font-weight: 900;
 }
 
+.category-card-title-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  margin: 0 0 9px;
+}
+
+.category-card-title-row h2 {
+  margin: 0;
+}
+
 .category-detail-card.category-coming-soon .category-card-main h2 {
   color: #697782;
 }
@@ -830,10 +883,15 @@ button:focus-visible {
 }
 
 .category-detail-card .category-soon-badge {
-  right: 34px;
-  min-width: 184px;
-  height: 36px;
-  background: rgba(18, 58, 93, 0.92);
+  position: static;
+  justify-self: end;
+  min-width: 198px;
+  height: 46px;
+  border-width: 3px;
+  background: linear-gradient(100deg, #063a66, #074a7f);
+  font-size: 17px;
+  transform: none;
+  box-shadow: 0 5px 13px rgba(5, 31, 52, 0.2);
 }
 
 .ranking-app {
@@ -1497,6 +1555,35 @@ button:focus-visible {
   padding: 32px;
 }
 
+.photo-question-figure {
+  overflow: hidden;
+  margin: 0 0 28px;
+  border-radius: 12px;
+  background: rgba(18, 58, 93, 0.08);
+  box-shadow: 0 6px 16px rgba(24, 45, 58, 0.1);
+}
+
+.photo-question-figure img {
+  display: block;
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
+
+.photo-quiz-app .question-panel h2 {
+  margin-bottom: 24px;
+  font-size: 39px;
+}
+
+.photo-quiz-app .answer-button {
+  min-height: 82px;
+}
+
+.result-photo-submit-link {
+  min-width: 250px;
+  text-decoration: none;
+}
+
 .question-label {
   display: inline-grid;
   place-items: center;
@@ -1562,14 +1649,15 @@ button:focus-visible {
 
 .feedback-panel {
   margin-top: 18px;
-  padding: 24px 28px 28px;
+  padding: 30px 32px 34px;
 }
 
 .feedback-result {
-  margin: 0 0 10px;
+  margin: 0 0 16px;
   font-family: var(--serif);
-  font-size: 25px;
+  font-size: 44px;
   font-weight: 900;
+  line-height: 1.2;
 }
 
 .is-correct-text {
@@ -1580,13 +1668,26 @@ button:focus-visible {
   color: #b33a33;
 }
 
-.feedback-copy,
+.feedback-copy {
+  margin: 0;
+  color: var(--navy);
+  font-size: 30px;
+  font-weight: 800;
+  line-height: 1.7;
+}
+
 .result-copy {
   margin: 0;
   color: var(--navy);
-  font-size: 16px;
+  font-size: 28px;
   font-weight: 800;
-  line-height: 1.8;
+  line-height: 1.7;
+}
+
+.feedback-panel .quiz-button {
+  min-height: 82px;
+  margin-top: 26px;
+  font-size: 28px;
 }
 
 .quiz-button,
@@ -1615,43 +1716,94 @@ button:focus-visible {
 }
 
 .result-panel {
-  padding: 42px 34px;
+  padding: 50px 34px 46px;
   text-align: center;
 }
 
 .result-kicker {
   display: inline-grid;
   place-items: center;
-  min-height: 36px;
-  margin: 0 0 18px;
-  padding: 0 18px;
+  min-height: 48px;
+  margin: 0 0 24px;
+  padding: 0 26px;
   border-radius: 999px;
   background: rgba(185, 149, 53, 0.14);
   color: var(--gold-dark);
+  font-size: 23px;
   font-weight: 900;
 }
 
 .result-panel h2 {
-  margin: 0 0 12px;
+  margin: 0 0 18px;
   color: var(--navy);
   font-family: var(--serif);
-  font-size: 34px;
+  font-size: 47px;
   font-weight: 900;
+  line-height: 1.35;
 }
 
 .result-score {
-  margin: 0 0 14px;
+  margin: 0 0 24px;
   color: var(--gold-dark);
   font-family: var(--serif);
-  font-size: 31px;
+  font-size: 42px;
   font-weight: 900;
 }
 
 .result-actions {
   display: flex;
   justify-content: center;
-  gap: 16px;
+  gap: 18px;
   flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.result-panel .quiz-button,
+.result-panel .quiz-secondary-button {
+  min-height: 82px;
+  min-width: 230px;
+  font-size: 27px;
+}
+
+@media (max-width: 480px) {
+  .result-panel {
+    padding: 58px 36px 52px;
+  }
+
+  .result-kicker {
+    min-height: 54px;
+    margin-bottom: 28px;
+    padding: 0 30px;
+    font-size: 27px;
+  }
+
+  .result-panel h2 {
+    margin-bottom: 22px;
+    font-size: 58px;
+    line-height: 1.28;
+  }
+
+  .result-score {
+    margin-bottom: 28px;
+    font-size: 52px;
+  }
+
+  .result-copy {
+    font-size: 36px;
+    line-height: 1.62;
+  }
+
+  .result-actions {
+    gap: 22px;
+    margin-top: 18px;
+  }
+
+  .result-panel .quiz-button,
+  .result-panel .quiz-secondary-button {
+    min-height: 90px;
+    min-width: 260px;
+    font-size: 32px;
+  }
 }
 
 .photo-submit-app {
@@ -1660,13 +1812,88 @@ button:focus-visible {
   background: linear-gradient(180deg, #fff 0, var(--paper) 100%);
 }
 
+.photo-help-overlay {
+  position: absolute;
+  inset: 79px 0 128px;
+  z-index: 8;
+  display: grid;
+  align-items: start;
+  justify-items: center;
+  padding: 86px 34px 34px;
+  background: rgba(255, 255, 255, 0.58);
+}
+
+.photo-help-overlay[hidden] {
+  display: none;
+}
+
+.photo-help-card {
+  position: relative;
+  width: 100%;
+  max-width: 632px;
+  padding: 40px 38px 36px;
+  border: 3px solid rgba(185, 149, 53, 0.42);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 18px 42px rgba(5, 31, 52, 0.26);
+  color: var(--navy);
+}
+
+.photo-help-close {
+  position: absolute;
+  right: 18px;
+  top: 17px;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(18, 58, 93, 0.08);
+  color: var(--navy);
+  cursor: pointer;
+  font-size: 33px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.photo-help-kicker {
+  display: inline-grid;
+  place-items: center;
+  min-height: 34px;
+  margin: 0 0 18px;
+  padding: 0 18px;
+  border-radius: 999px;
+  background: rgba(185, 149, 53, 0.14);
+  color: var(--gold-dark);
+  font-size: 19px;
+  font-weight: 900;
+}
+
+.photo-help-card h2 {
+  margin: 0 58px 18px 0;
+  color: var(--navy);
+  font-family: var(--serif);
+  font-size: 34px;
+  font-weight: 900;
+  line-height: 1.45;
+}
+
+.photo-help-card p:last-child {
+  margin: 0;
+  color: var(--navy);
+  font-size: 23px;
+  font-weight: 800;
+  line-height: 1.75;
+}
+
 .photo-hero {
   position: relative;
-  min-height: 205px;
+  min-height: 276px;
   overflow: hidden;
   background:
     linear-gradient(90deg, rgba(5, 45, 80, 0.98) 0 47%, rgba(5, 45, 80, 0.78) 65%, rgba(5, 45, 80, 0.1)),
-    url("./assets/himeji-card.png") right center / 385px 205px no-repeat,
+    url("./assets/himeji-card.png") right center / 480px 276px no-repeat,
     #06365f;
 }
 
@@ -1675,8 +1902,8 @@ button:focus-visible {
   position: absolute;
   right: 0;
   top: 0;
-  width: 390px;
-  height: 205px;
+  width: 470px;
+  height: 276px;
   background: url("./assets/hero-castle.png") right top / cover no-repeat;
   opacity: 0.9;
   mix-blend-mode: screen;
@@ -1685,21 +1912,21 @@ button:focus-visible {
 .photo-hero-text {
   position: relative;
   z-index: 1;
-  padding: 34px 34px;
+  padding: 42px 38px;
   color: #fff;
 }
 
 .photo-hero h1 {
-  margin: 0 0 18px;
+  margin: 0 0 22px;
   font-family: var(--serif);
-  font-size: 36px;
+  font-size: 49px;
   font-weight: 900;
   line-height: 1.35;
 }
 
 .photo-hero p {
   margin: 0;
-  font-size: 16px;
+  font-size: 23px;
   font-weight: 800;
   line-height: 1.7;
 }
@@ -1708,30 +1935,30 @@ button:focus-visible {
 .photo-form-card {
   position: relative;
   z-index: 2;
-  margin-inline: 14px;
+  margin-inline: 25px;
   border-radius: 10px;
   background: rgba(255, 255, 255, 0.98);
   box-shadow: var(--shadow);
 }
 
 .photo-examples {
-  margin-top: -13px;
-  padding: 18px 18px 19px;
+  margin-top: -20px;
+  padding: 26px 26px 28px;
 }
 
 .photo-examples h2,
 .photo-form-card h2 {
-  margin: 0 0 14px;
+  margin: 0 0 20px;
   color: var(--navy);
   font-family: var(--serif);
-  font-size: 20px;
+  font-size: 31px;
   font-weight: 900;
 }
 
 .photo-example-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 13px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
 }
 
 .photo-example-grid article {
@@ -1746,24 +1973,24 @@ button:focus-visible {
 .photo-example-grid img {
   display: block;
   width: 100%;
-  height: 99px;
+  height: 132px;
   object-fit: cover;
 }
 
 .photo-example-grid span {
   display: grid;
   place-items: center;
-  min-height: 36px;
-  padding: 0 5px;
-  font-size: 12px;
+  min-height: 62px;
+  padding: 0 8px;
+  font-size: 20px;
   font-weight: 900;
 }
 
 .photo-form-card {
   flex: 0 0 auto;
-  margin-top: 13px;
-  margin-bottom: 15px;
-  padding: 18px 22px 17px;
+  margin-top: 20px;
+  margin-bottom: 26px;
+  padding: 28px 30px 26px;
 }
 
 .photo-submit-app .bottom-nav {
@@ -1773,13 +2000,13 @@ button:focus-visible {
 .photo-form-card h2 {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 21px;
+  gap: 12px;
+  font-size: 33px;
 }
 
 .photo-form-card h2 svg {
-  width: 29px;
-  height: 29px;
+  width: 43px;
+  height: 43px;
   fill: none;
   stroke: var(--navy);
   stroke-width: 4;
@@ -1789,14 +2016,14 @@ button:focus-visible {
 
 .photo-submit-form {
   display: grid;
-  gap: 15px;
+  gap: 23px;
 }
 
 .photo-dropzone {
   display: grid;
   place-items: center;
-  min-height: 112px;
-  padding: 15px;
+  min-height: 178px;
+  padding: 24px;
   border: 2px dashed rgba(18, 58, 93, 0.25);
   border-radius: 8px;
   background: #fff;
@@ -1817,9 +2044,9 @@ button:focus-visible {
 }
 
 .photo-dropzone svg {
-  width: 42px;
-  height: 42px;
-  margin-bottom: 5px;
+  width: 66px;
+  height: 66px;
+  margin-bottom: 10px;
   fill: none;
   stroke: #a8b8c8;
   stroke-width: 3.5;
@@ -1828,50 +2055,50 @@ button:focus-visible {
 }
 
 .photo-dropzone strong {
-  font-size: 15px;
+  font-size: 28px;
   font-weight: 900;
 }
 
 .photo-dropzone span {
-  margin-top: 4px;
+  margin-top: 8px;
   color: #53687a;
-  font-size: 12px;
+  font-size: 22px;
   font-weight: 800;
   line-height: 1.45;
 }
 
 .photo-field {
   display: grid;
-  gap: 7px;
+  gap: 12px;
 }
 
 .photo-field span {
   color: var(--navy);
-  font-size: 14px;
+  font-size: 24px;
   font-weight: 900;
 }
 
 .photo-field b {
   display: inline-grid;
   place-items: center;
-  min-width: 39px;
-  height: 19px;
-  margin-left: 8px;
+  min-width: 58px;
+  height: 29px;
+  margin-left: 11px;
   border-radius: 999px;
   background: #f0606b;
   color: #fff;
-  font-size: 11px;
+  font-size: 16px;
   font-style: normal;
 }
 
 .photo-field input {
   width: 100%;
-  height: 40px;
-  padding: 0 15px;
+  height: 70px;
+  padding: 0 22px;
   border: 1px solid rgba(18, 58, 93, 0.2);
   border-radius: 6px;
   color: var(--navy);
-  font-size: 14px;
+  font-size: 24px;
   font-weight: 800;
 }
 
@@ -1880,33 +2107,34 @@ button:focus-visible {
 }
 
 .photo-rules {
-  padding: 14px 16px;
+  padding: 22px 24px;
   border: 1px solid rgba(185, 149, 53, 0.28);
   border-radius: 8px;
   background: rgba(185, 149, 53, 0.06);
 }
 
 .photo-rules h3 {
-  margin: 0 0 8px;
+  margin: 0 0 13px;
   color: var(--navy);
-  font-size: 14px;
+  font-size: 23px;
   font-weight: 900;
 }
 
 .photo-rules ul {
   display: grid;
-  gap: 6px;
+  gap: 10px;
   margin: 0;
   padding: 0;
   list-style: none;
   color: var(--navy);
-  font-size: 12px;
+  font-size: 19px;
   font-weight: 800;
+  line-height: 1.45;
 }
 
 .photo-rules li::before {
   content: "✓";
-  margin-right: 7px;
+  margin-right: 10px;
   color: var(--blue);
   font-weight: 900;
 }
@@ -1915,14 +2143,14 @@ button:focus-visible {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  height: 56px;
+  gap: 16px;
+  height: 80px;
   border: 0;
   border-radius: 10px;
   background: linear-gradient(100deg, #063a66, #064a81);
   color: #fff;
   cursor: pointer;
-  font-size: 18px;
+  font-size: 29px;
   font-weight: 900;
   box-shadow: 0 4px 12px rgba(5, 45, 80, 0.22);
 }
@@ -1934,8 +2162,8 @@ button:focus-visible {
 }
 
 .photo-submit-button svg {
-  width: 26px;
-  height: 26px;
+  width: 38px;
+  height: 38px;
   fill: none;
   stroke: currentColor;
   stroke-width: 4;
@@ -1944,10 +2172,10 @@ button:focus-visible {
 }
 
 .photo-submit-status {
-  min-height: 22px;
-  margin: -4px 0 0;
+  min-height: 32px;
+  margin: -5px 0 0;
   color: #53687a;
-  font-size: 13px;
+  font-size: 20px;
   font-weight: 900;
   line-height: 1.45;
   text-align: center;

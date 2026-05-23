@@ -1,68 +1,44 @@
-const questions = [
+const QUIZ_SIZE = 10;
+const QUIZ_CSV_PATH = "./quiz.csv";
+const DIFFICULTY_LABELS = {
+  beginner: "初級",
+  intermediate: "中級",
+  advanced: "上級"
+};
+
+const QUIZ_PAGE_CONFIGS = [
   {
-    question: "現存12天守とは、主にどのような天守のこと？",
-    choices: [
-      "江戸時代以前から残る天守",
-      "高さが12階以上ある天守",
-      "日本で入場者数が多い12の天守",
-      "国宝に指定された12の天守"
-    ],
-    answer: 0,
-    explanation: "現存12天守は、江戸時代以前に建てられた天守が現在まで残っている12城を指します。"
+    pattern: /quiz-12-tenju-(beginner|intermediate|advanced)\.html$/,
+    title: "現存12天守",
+    group: "existing-12"
   },
   {
-    question: "別名「白鷺城」として知られる現存天守はどれ？",
-    choices: ["松本城", "姫路城", "丸岡城", "宇和島城"],
-    answer: 1,
-    explanation: "姫路城は白い漆喰の美しさから「白鷺城」と呼ばれています。"
+    pattern: /quiz-100-meijo-(beginner|intermediate|advanced)\.html$/,
+    title: "100名城",
+    group: "100-meijo"
   },
   {
-    question: "現存12天守のうち、青森県にある城はどれ？",
-    choices: ["弘前城", "彦根城", "備中松山城", "高知城"],
-    answer: 0,
-    explanation: "弘前城は青森県弘前市にある現存天守です。"
+    pattern: /quiz-zoku-100-meijo-(beginner|intermediate|advanced)\.html$/,
+    title: "続100名城",
+    group: "zoku-100-meijo"
   },
   {
-    question: "黒い外観から「烏城」とも呼ばれる現存天守はどれ？",
-    choices: ["犬山城", "松本城", "松江城", "丸亀城"],
-    answer: 1,
-    explanation: "松本城は黒い下見板張りの外観が印象的で「烏城」とも呼ばれます。"
+    pattern: /quiz-himeji\.html$/,
+    title: "姫路城",
+    group: "castle",
+    castleNames: ["姫路城"]
   },
   {
-    question: "現存12天守のうち、福井県にある城はどれ？",
-    choices: ["丸岡城", "松山城", "高知城", "犬山城"],
-    answer: 0,
-    explanation: "丸岡城は福井県坂井市にある現存天守です。"
+    pattern: /quiz-edo\.html$/,
+    title: "江戸城",
+    group: "castle",
+    castleNames: ["江戸城"]
   },
   {
-    question: "現存12天守のうち、島根県にある国宝天守はどれ？",
-    choices: ["松江城", "弘前城", "宇和島城", "丸亀城"],
-    answer: 0,
-    explanation: "松江城は島根県松江市にあり、国宝天守のひとつです。"
-  },
-  {
-    question: "現存12天守のうち、香川県にある城はどれ？",
-    choices: ["備中松山城", "丸亀城", "松山城", "犬山城"],
-    answer: 1,
-    explanation: "丸亀城は香川県丸亀市にある現存天守です。"
-  },
-  {
-    question: "現存12天守のうち、高知県にある城はどれ？",
-    choices: ["高知城", "彦根城", "松本城", "姫路城"],
-    answer: 0,
-    explanation: "高知城は高知県高知市にあり、本丸の建物群がよく残る城として知られています。"
-  },
-  {
-    question: "現存12天守のうち、岡山県高梁市にある山城はどれ？",
-    choices: ["宇和島城", "備中松山城", "丸岡城", "松江城"],
-    answer: 1,
-    explanation: "備中松山城は岡山県高梁市にあり、山城として知られる現存天守です。"
-  },
-  {
-    question: "現存12天守で、愛知県にある国宝天守はどれ？",
-    choices: ["犬山城", "松山城", "丸亀城", "弘前城"],
-    answer: 0,
-    explanation: "犬山城は愛知県犬山市にある国宝天守です。"
+    pattern: /quiz-osaka\.html$/,
+    title: "大阪城",
+    group: "castle",
+    castleNames: ["大阪城", "大坂城"]
   }
 ];
 
@@ -85,10 +61,41 @@ const resultTitle = document.querySelector("#result-title");
 const resultScore = document.querySelector("#result-score");
 const resultCopy = document.querySelector("#result-copy");
 const retryButton = document.querySelector("#retry-button");
+const headerBadge = document.querySelector(".header-badge");
 
+let questions = [];
+let questionPool = [];
 let currentIndex = 0;
 let score = 0;
 let answered = false;
+
+function getQuizConfig() {
+  const fileName = window.location.pathname.split("/").pop() || "";
+  const matched = QUIZ_PAGE_CONFIGS
+    .map((config) => ({ config, match: fileName.match(config.pattern) }))
+    .find(({ match }) => match);
+
+  if (!matched) {
+    return {
+      title: "現存12天守",
+      group: "existing-12",
+      difficulty: "初級"
+    };
+  }
+
+  return {
+    title: matched.config.title,
+    group: matched.config.group,
+    difficulty: DIFFICULTY_LABELS[matched.match[1]] || "",
+    castleNames: matched.config.castleNames || []
+  };
+}
+
+const quizConfig = getQuizConfig();
+
+function getQuizDisplayName() {
+  return quizConfig.difficulty ? `${quizConfig.title} ${quizConfig.difficulty}` : quizConfig.title;
+}
 
 function fitDesign() {
   const scale = Math.min(window.innerWidth / designWidth, 1);
@@ -99,8 +106,169 @@ function fitDesign() {
   frame.style.height = `${app.scrollHeight * scale}px`;
 }
 
+function parseCsv(csvText) {
+  const rows = [];
+  let row = [];
+  let field = "";
+  let inQuotes = false;
+
+  for (let index = 0; index < csvText.length; index += 1) {
+    const char = csvText[index];
+    const nextChar = csvText[index + 1];
+
+    if (inQuotes) {
+      if (char === "\"" && nextChar === "\"") {
+        field += "\"";
+        index += 1;
+      } else if (char === "\"") {
+        inQuotes = false;
+      } else {
+        field += char;
+      }
+      continue;
+    }
+
+    if (char === "\"") {
+      inQuotes = true;
+    } else if (char === ",") {
+      row.push(field);
+      field = "";
+    } else if (char === "\n") {
+      row.push(field.replace(/\r$/, ""));
+      rows.push(row);
+      row = [];
+      field = "";
+    } else {
+      field += char;
+    }
+  }
+
+  if (field || row.length) {
+    row.push(field.replace(/\r$/, ""));
+    rows.push(row);
+  }
+
+  return rows.filter((csvRow) => csvRow.some((cell) => cell.trim()));
+}
+
+function csvToRecords(csvText) {
+  const rows = parseCsv(csvText.replace(/^\uFEFF/, ""));
+  const headers = rows[0] || [];
+
+  return rows.slice(1).map((row) => {
+    return headers.reduce((record, header, index) => {
+      record[header] = row[index]?.trim() || "";
+      return record;
+    }, {});
+  });
+}
+
+function rowMatchesQuizConfig(row) {
+  if (quizConfig.difficulty && row["難易度"] !== quizConfig.difficulty) {
+    return false;
+  }
+
+  if (quizConfig.group === "existing-12") {
+    return Boolean(row["現存12天守"]);
+  }
+
+  if (quizConfig.group === "100-meijo") {
+    return row["100名城"] === "100名城";
+  }
+
+  if (quizConfig.group === "zoku-100-meijo") {
+    return row["100名城"] === "続100名城";
+  }
+
+  if (quizConfig.group === "castle") {
+    return quizConfig.castleNames.includes(row["城"]);
+  }
+
+  return false;
+}
+
+function rowToQuestion(row) {
+  const choices = row["選択肢"].split(",").map((choice) => choice.trim()).filter(Boolean);
+  const answerText = row["答え"].trim();
+  const answer = choices.indexOf(answerText);
+
+  if (!row["問題文"] || choices.length < 2 || answer < 0) {
+    return null;
+  }
+
+  return {
+    question: row["問題文"],
+    choices,
+    answer,
+    explanation: row["解説"] || "解説は準備中です。"
+  };
+}
+
+function shuffle(items) {
+  const shuffled = [...items];
+
+  for (let index = shuffled.length - 1; index > 0; index -= 1) {
+    const randomIndex = Math.floor(Math.random() * (index + 1));
+    [shuffled[index], shuffled[randomIndex]] = [shuffled[randomIndex], shuffled[index]];
+  }
+
+  return shuffled;
+}
+
+function setLoadingState() {
+  questionPanel.hidden = false;
+  feedbackPanel.hidden = true;
+  resultPanel.hidden = true;
+  questionCount.textContent = "読込中";
+  scoreCount.textContent = "正解 0";
+  questionLabel.textContent = "準備中";
+  questionText.textContent = "問題を読み込んでいます...";
+  answerList.innerHTML = "";
+  progressBar.style.width = "0%";
+  fitDesign();
+}
+
+function setErrorState(message) {
+  questionPanel.hidden = false;
+  feedbackPanel.hidden = true;
+  resultPanel.hidden = true;
+  questionCount.textContent = "エラー";
+  questionLabel.textContent = "読み込み失敗";
+  questionText.textContent = message;
+  answerList.innerHTML = "";
+  progressBar.style.width = "0%";
+  fitDesign();
+}
+
+async function loadQuestionPool() {
+  const response = await fetch(QUIZ_CSV_PATH, { cache: "no-store" });
+
+  if (!response.ok) {
+    throw new Error(`quiz.csvを読み込めませんでした。HTTP ${response.status}`);
+  }
+
+  const records = csvToRecords(await response.text());
+  return records
+    .filter(rowMatchesQuizConfig)
+    .map(rowToQuestion)
+    .filter(Boolean);
+}
+
+function resetQuiz() {
+  questions = shuffle(questionPool).slice(0, QUIZ_SIZE);
+  currentIndex = 0;
+  score = 0;
+  renderQuestion();
+}
+
 function renderQuestion() {
   const current = questions[currentIndex];
+
+  if (!current) {
+    setErrorState("表示できる問題がありません。quiz.csvの条件を確認してください。");
+    return;
+  }
+
   answered = false;
   feedbackPanel.hidden = true;
   resultPanel.hidden = true;
@@ -161,9 +329,9 @@ function showResult() {
   resultTitle.textContent = score >= 8 ? "お城マスター目前！" : score >= 5 ? "いい調子です！" : "ここから覚えていきましょう";
   resultScore.textContent = `${questions.length}問中 ${score}問 正解`;
   resultCopy.textContent = score >= 8
-    ? "現存12天守の基本はかなり押さえられています。次は中級にも挑戦したいところです。"
+    ? `${getQuizDisplayName()}の知識はかなり押さえられています。次の級に挑戦しましょう！`
     : score >= 5
-      ? "地名と城名の組み合わせがつかめてきています。もう一度解くと一気に定着します。"
+      ? "基本が少しずつつかめてきています。もう一度解くと一気に定着します。"
       : "最初は名前と場所を結びつけるだけで十分です。気軽にもう一周してみましょう。";
   fitDesign();
 }
@@ -179,12 +347,29 @@ nextButton.addEventListener("click", () => {
 });
 
 retryButton.addEventListener("click", () => {
-  currentIndex = 0;
-  score = 0;
-  renderQuestion();
+  resetQuiz();
   window.scrollTo({ top: 0, behavior: "smooth" });
 });
 
 window.addEventListener("resize", fitDesign);
 window.addEventListener("load", fitDesign);
-renderQuestion();
+
+async function initQuiz() {
+  setLoadingState();
+  headerBadge.textContent = getQuizDisplayName();
+  document.title = `${getQuizDisplayName()} | お城クイズ`;
+
+  try {
+    questionPool = await loadQuestionPool();
+
+    if (questionPool.length < QUIZ_SIZE) {
+      throw new Error(`${getQuizDisplayName()}の問題が${QUIZ_SIZE}問未満です。`);
+    }
+
+    resetQuiz();
+  } catch (error) {
+    setErrorState(error.message || "問題の読み込みに失敗しました。");
+  }
+}
+
+initQuiz();

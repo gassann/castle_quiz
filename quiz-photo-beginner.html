@@ -12,14 +12,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#ffffff">
-    <title>現存12天守 初級 | お城クイズ</title>
+    <title>写真クイズ 初級 | お城クイズ</title>
     <link rel="stylesheet" href="./styles.css?v=20260519-result-mobile">
   </head>
   <body>
     <svg class="svg-defs" aria-hidden="true">
-      <symbol id="icon-castle" viewBox="0 0 92 72">
-        <path d="M18 61h56M24 51h44M30 42h32M11 62l7-13h56l7 13M22 49l7-18h34l7 18M33 40l5-19h16l5 19M17 31h58M26 22h40M35 13h22M40 13l6-7 6 7M24 31l8-9 8 9M52 31l8-9 8 9M34 61V50h24v11M41 61V51M51 61V51" />
-      </symbol>
       <symbol id="icon-book" viewBox="0 0 80 80">
         <path d="M22 15h30a8 8 0 0 1 8 8v42H30a8 8 0 0 0-8 8V15Z" />
         <path d="M22 15v58M30 26h20M30 36h17M30 46h14M58 22h7v44h-7" />
@@ -38,19 +35,19 @@
     </svg>
 
     <div class="scale-frame">
-      <main class="app quiz-app">
+      <main class="app quiz-app photo-quiz-app">
         <header class="site-header quiz-site-header">
-          <a class="back-link" href="./index.html#categories" aria-label="カテゴリーへ戻る">‹</a>
+          <a class="back-link" href="./categories.html" aria-label="カテゴリーへ戻る">‹</a>
           <a class="brand" href="./index.html" aria-label="お城クイズ ホーム">
             <img class="brand-castle-img" src="./assets/castle_icon.png" alt="">
             <span>お城クイズ</span>
           </a>
-          <span class="header-badge">現存12天守 初級</span>
+          <span class="header-badge">写真クイズ 初級</span>
         </header>
 
         <section class="quiz-stage" aria-live="polite">
           <div class="quiz-progress">
-            <span id="question-count">Q1 / 10</span>
+            <span id="question-count">Q1 / 5</span>
             <span id="score-count">正解 0</span>
           </div>
           <div class="progress-track" aria-hidden="true">
@@ -59,6 +56,9 @@
 
           <article class="question-panel" id="question-panel">
             <p class="question-label" id="question-label">第1問</p>
+            <figure class="photo-question-figure">
+              <img id="question-image" src="" alt="">
+            </figure>
             <h2 id="question-text"></h2>
             <div class="answer-list" id="answer-list"></div>
           </article>
@@ -75,8 +75,8 @@
             <p class="result-score" id="result-score"></p>
             <p class="result-copy" id="result-copy"></p>
             <div class="result-actions">
-              <button class="quiz-button" id="retry-button" type="button">もう一度挑戦</button>
-              <a class="quiz-secondary-button" href="./index.html#categories">カテゴリーへ戻る</a>
+              <a class="quiz-button result-photo-submit-link" href="./photo-submit.html">写真を投稿する</a>
+              <button class="quiz-secondary-button" id="retry-button" type="button">もう一度挑戦</button>
             </div>
           </section>
         </section>
@@ -91,6 +91,6 @@
       </main>
     </div>
 
-    <script src="./quiz-12-tenju-beginner.js?v=20260519-csv"></script>
+    <script src="./quiz-photo-beginner.js?v=20260519-photo-quiz"></script>
   </body>
 </html>

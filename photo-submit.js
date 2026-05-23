@@ -8,11 +8,17 @@ const fileName = document.querySelector("#photo-file-name");
 const fileHelp = document.querySelector("#photo-file-help");
 const status = document.querySelector("#photo-submit-status");
 const submitButton = document.querySelector(".photo-submit-button");
+const photoHelpOverlay = document.querySelector("#photo-help-overlay");
+const photoHelpClose = document.querySelector("#photo-help-close");
 
 const requiredConfigKeys = ["apiKey", "authDomain", "projectId", "storageBucket", "appId"];
 const isConfigured = requiredConfigKeys.every((key) => Boolean(firebaseConfig[key]));
 const isLocalFile = window.location.protocol === "file:";
 let firebaseApi = null;
+
+photoHelpClose?.addEventListener("click", () => {
+  photoHelpOverlay.hidden = true;
+});
 
 async function loadFirebaseApi() {
   if (firebaseApi) {
