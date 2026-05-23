@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <script src="./ga.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>問題別正解率 | お城クイズ 管理</title>
+    <style>
+      *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font-family: system-ui, sans-serif; background: #f5f5f5; color: #222; padding: 24px 16px; }
+      h1 { font-size: 1.4rem; margin-bottom: 16px; }
+
+      .filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+      .filters select { padding: 6px 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 0.9rem; }
+
+      table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,.1); }
+      th { background: #1A2A4A; color: #fff; padding: 10px 12px; text-align: left; font-size: 0.85rem; }
+      td { padding: 10px 12px; border-bottom: 1px solid #eee; font-size: 0.85rem; vertical-align: top; }
+      tr:last-child td { border-bottom: none; }
+      tr:hover td { background: #f9f9f9; }
+
+      .bar-wrap { background: #eee; border-radius: 4px; height: 8px; width: 120px; margin-top: 4px; }
+      .bar { height: 8px; border-radius: 4px; }
+      .bar.low    { background: #e05a5a; }
+      .bar.mid    { background: #e09a2a; }
+      .bar.high   { background: #4caf50; }
+
+      .rate { font-weight: bold; }
+      .rate.low    { color: #e05a5a; }
+      .rate.mid    { color: #e09a2a; }
+      .rate.high   { color: #4caf50; }
+
+      .question-text { max-width: 360px; line-height: 1.5; }
+      .meta { color: #888; font-size: 0.8rem; margin-top: 2px; }
+
+      #loading { text-align: center; padding: 40px; color: #888; }
+      #summary { margin-bottom: 12px; color: #555; font-size: 0.9rem; }
+
+      .sort-btn { cursor: pointer; user-select: none; }
+      .sort-btn::after { content: ' ↕'; opacity: .5; }
+      .sort-btn.asc::after  { content: ' ↑'; opacity: 1; }
+      .sort-btn.desc::after { content: ' ↓'; opacity: 1; }
+    </style>
+  </head>
+  <body>
+    <h1>問題別正解率</h1>
+
+    <div class="filters">
+      <select id="filter-group">
+        <option value="">すべてのカテゴリ</option>
+        <option value="existing-12">現存12天守</option>
+        <option value="100-meijo">100名城</option>
+        <option value="zoku-100-meijo">続100名城</option>
+        <option value="castle">城別</option>
+      </select>
+      <select id="filter-difficulty">
+        <option value="">すべての難易度</option>
+        <option value="初級">初級</option>
+        <option value="中級">中級</option>
+        <option value="上級">上級</option>
+      </select>
+    </div>
+
+    <div id="summary"></div>
+    <div id="loading">データを読み込み中...</div>
+
+    <table id="stats-table" hidden>
+      <thead>
+        <tr>
+          <th class="sort-btn desc" data-col="rate">正解率</th>
+          <th>問題文</th>
+          <th class="sort-btn" data-col="total">回答数</th>
+        </tr>
+      </thead>
+      <tbody id="stats-body"></tbody>
+    </table>
+
+    <script type="module">
+      const FIREBASE_VERSION = '10.12.5';
+      const base = `https://www.gstatic.com/firebasejs/${FIREBASE_VERSION}`;
+
+      const [{ initializeApp, getApps }, { getFirestore, collection, getDocs, orderBy, query }] =
+        await Promise.all([
+          import(`${base}/firebase-app.js`),
+          import(`${base}/firebase-firestore.js`),
+        ]);
+
+      const { firebaseConfig } = await import('./firebase-config.js');
+      const app = getApps().length ? getApps()[0] : initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+
+      let allData = [];
+      let sortCol = 'rate';
+      let sortDir = 'asc'; // 正解率の低い順（苦手問題が上）
+
+      const loading      = document.getElementById('loading');
+      const table        = document.getElementById('stats-table');
+      const tbody        = document.getElementById('stats-body');
+      const summary      = document.getElementById('summary');
+      const filterGroup  = document.getElementById('filter-group');
+      const filterDiff   = document.getElementById('filter-difficulty');
+
+      function rateClass(r) {
+        return r < 50 ? 'low' : r < 80 ? 'mid' : 'high';
+      }
+
+      function groupLabel(g) {
+        return { 'existing-12': '現存12天守', '100-meijo': '100名城', 'zoku-100-meijo': '続100名城', 'castle': '城別' }[g] || g;
+      }
+
+      function render() {
+        const group = filterGroup.value;
+        const diff  = filterDiff.value;
+
+        let data = allData.filter(d =>
+          (!group || d.group === group) &&
+          (!diff  || d.difficulty === diff)
+        );
+
+        data.sort((a, b) => {
+          const va = sortCol === 'rate' ? a.rate : a.total;
+          const vb = sortCol === 'rate' ? b.rate : b.total;
+          return sortDir === 'asc' ? va - vb : vb - va;
+        });
+
+        summary.textContent = `${data.length}問 / 総回答数 ${data.reduce((s, d) => s + d.total, 0).toLocaleString()}回`;
+
+        tbody.innerHTML = data.map(d => {
+          const cls = rateClass(d.rate);
+          return `<tr>
+            <td>
+              <span class="rate ${cls}">${d.rate}%</span>
+              <div class="bar-wrap"><div class="bar ${cls}" style="width:${d.rate}%"></div></div>
+              <div class="meta">${d.correct} / ${d.total}</div>
+            </td>
+            <td>
+              <div class="question-text">${d.question}</div>
+              <div class="meta">${groupLabel(d.group)}${d.difficulty ? ' · ' + d.difficulty : ''}</div>
+            </td>
+            <td>${d.total.toLocaleString()}</td>
+          </tr>`;
+        }).join('');
+      }
+
+      // データ取得
+      try {
+        const snap = await getDocs(query(collection(db, 'quiz_stats'), orderBy('total', 'desc')));
+        allData = snap.docs.map(d => {
+          const v = d.data();
+          return {
+            ...v,
+            rate: v.total > 0 ? Math.round((v.correct / v.total) * 100) : 0,
+          };
+        });
+
+        loading.hidden = true;
+        table.hidden = false;
+        render();
+      } catch (e) {
+        loading.textContent = 'データの読み込みに失敗しました: ' + e.message;
+      }
+
+      // ソート
+      document.querySelectorAll('.sort-btn').forEach(th => {
+        th.addEventListener('click', () => {
+          const col = th.dataset.col;
+          if (sortCol === col) {
+            sortDir = sortDir === 'asc' ? 'desc' : 'asc';
+          } else {
+            sortCol = col;
+            sortDir = col === 'rate' ? 'asc' : 'desc';
+          }
+          document.querySelectorAll('.sort-btn').forEach(t => t.classList.remove('asc', 'desc'));
+          th.classList.add(sortDir);
+          render();
+        });
+      });
+
+      filterGroup.addEventListener('change', render);
+      filterDiff.addEventListener('change', render);
+    </script>
+  </body>
+</html>

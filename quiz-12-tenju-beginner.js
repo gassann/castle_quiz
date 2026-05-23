@@ -303,6 +303,15 @@ function selectAnswer(index) {
     score += 1;
   }
 
+  if (typeof window.recordAnswer === 'function') {
+    window.recordAnswer({
+      question:   current.question,
+      group:      quizConfig.group,
+      difficulty: quizConfig.difficulty || '',
+      isCorrect,
+    });
+  }
+
   buttons.forEach((button, buttonIndex) => {
     button.disabled = true;
     if (buttonIndex === current.answer) button.classList.add("is-correct");
