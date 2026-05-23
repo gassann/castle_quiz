@@ -1557,7 +1557,9 @@ button:focus-visible {
 
 .photo-question-figure {
   overflow: hidden;
-  margin: 0 0 28px;
+  width: calc((100% - 18px) / 2);
+  max-width: 100%;
+  margin: 0 auto 28px;
   border-radius: 12px;
   background: rgba(18, 58, 93, 0.08);
   box-shadow: 0 6px 16px rgba(24, 45, 58, 0.1);
@@ -1566,8 +1568,7 @@ button:focus-visible {
 .photo-question-figure img {
   display: block;
   width: 100%;
-  height: 300px;
-  object-fit: cover;
+  height: auto;
 }
 
 .photo-quiz-app .question-panel h2 {
@@ -1577,6 +1578,45 @@ button:focus-visible {
 
 .photo-quiz-app .answer-button {
   min-height: 82px;
+}
+
+.photo-quiz-app .answer-list.image-choice-list {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.photo-quiz-app .image-choice-button {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  outline: 4px solid rgba(18, 58, 93, 0.1);
+  outline-offset: 0;
+  background: rgba(18, 58, 93, 0.06);
+}
+
+.photo-quiz-app .image-choice-button:hover:not(:disabled) {
+  outline-color: rgba(185, 149, 53, 0.56);
+}
+
+.photo-quiz-app .image-choice-button.is-correct {
+  outline-color: rgba(90, 177, 118, 0.9);
+}
+
+.photo-quiz-app .image-choice-button.is-wrong {
+  outline-color: rgba(190, 64, 56, 0.82);
+}
+
+.photo-quiz-app .image-choice-button img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
 }
 
 .result-photo-submit-link {
