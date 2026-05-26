@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#ffffff">
     <title>写真クイズ 初級 | お城クイズ</title>
-    <link rel="stylesheet" href="./styles.css?v=20260523-photo-grid-ratio">
+    <link rel="stylesheet" href="./styles.css?v=20260526-photo-notice-result">
   </head>
   <body>
     <svg class="svg-defs" aria-hidden="true">
@@ -74,6 +74,15 @@
           </section>
         </section>
 
+        <aside class="photo-help-overlay" id="photo-help-overlay" aria-labelledby="photo-help-title" hidden>
+          <div class="photo-help-card">
+            <button class="photo-help-close" id="photo-help-close" type="button" aria-label="お知らせを閉じる">×</button>
+            <p class="photo-help-kicker">写真提供のお願い</p>
+            <h2 id="photo-help-title">写真クイズを作るための写真が不足しています</h2>
+            <p>全国のお城をクイズにするには、天守や門、石垣などの写真がまだまだ必要です。あなたが撮影した一枚が、これから挑戦する人の問題になります。ぜひ写真投稿にご協力ください。</p>
+          </div>
+        </aside>
+
         <nav class="bottom-nav" aria-label="主要ナビゲーション">
           <a href="./index.html"><img class="nav-castle-img" src="./assets/castle_icon.png" alt=""><span>ホーム</span></a>
           <a href="./categories.html" aria-current="page"><svg aria-hidden="true"><use href="#icon-grid"></use></svg><span>カテゴリ</span></a>
@@ -84,6 +93,6 @@
       </main>
     </div>
 
-    <script src="./quiz-photo-beginner.js?v=20260523-image-choice"></script>
+    <script src="./quiz-photo-beginner.js?v=20260526-photo-notice-result"></script>
   </body>
 </html>

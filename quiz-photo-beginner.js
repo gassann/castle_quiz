@@ -33,12 +33,20 @@ const resultTitle = document.querySelector("#result-title");
 const resultScore = document.querySelector("#result-score");
 const resultCopy = document.querySelector("#result-copy");
 const retryButton = document.querySelector("#retry-button");
+const photoHelpOverlay = document.querySelector("#photo-help-overlay");
+const photoHelpClose = document.querySelector("#photo-help-close");
 
 let questionPool = [];
 let questions = [];
 let currentIndex = 0;
 let score = 0;
 let answered = false;
+
+photoHelpClose?.addEventListener("click", () => {
+  if (photoHelpOverlay) {
+    photoHelpOverlay.hidden = true;
+  }
+});
 
 function fitDesign() {
   const scale = Math.min(window.innerWidth / designWidth, 1);
@@ -262,6 +270,9 @@ function resetQuiz() {
   questions = pickQuestions();
   currentIndex = 0;
   score = 0;
+  if (photoHelpOverlay) {
+    photoHelpOverlay.hidden = true;
+  }
   renderQuestion();
 }
 
@@ -344,6 +355,9 @@ function showResult() {
   questionPanel.hidden = true;
   feedbackPanel.hidden = true;
   resultPanel.hidden = false;
+  if (photoHelpOverlay) {
+    photoHelpOverlay.hidden = false;
+  }
   questionCount.textContent = "完了";
   scoreCount.textContent = `正解 ${score}`;
   progressBar.style.width = "100%";
