@@ -10,34 +10,34 @@ const DIFFICULTY_LABELS = {
 
 const QUIZ_PAGE_CONFIGS = [
   {
-    pattern: /quiz-12-tenju-(beginner|intermediate|advanced)\.html$/,
+    pattern: /^quiz-12-tenju-(beginner|intermediate|advanced)$/,
     title: "現存12天守",
     group: "existing-12"
   },
   {
-    pattern: /quiz-100-meijo-(beginner|intermediate|advanced)\.html$/,
+    pattern: /^quiz-100-meijo-(beginner|intermediate|advanced)$/,
     title: "100名城",
     group: "100-meijo"
   },
   {
-    pattern: /quiz-zoku-100-meijo-(beginner|intermediate|advanced)\.html$/,
+    pattern: /^quiz-zoku-100-meijo-(beginner|intermediate|advanced)$/,
     title: "続100名城",
     group: "zoku-100-meijo"
   },
   {
-    pattern: /quiz-himeji\.html$/,
+    pattern: /^quiz-himeji$/,
     title: "姫路城",
     group: "castle",
     castleNames: ["姫路城"]
   },
   {
-    pattern: /quiz-edo\.html$/,
+    pattern: /^quiz-edo$/,
     title: "江戸城",
     group: "castle",
     castleNames: ["江戸城"]
   },
   {
-    pattern: /quiz-osaka\.html$/,
+    pattern: /^quiz-osaka$/,
     title: "大阪城",
     group: "castle",
     castleNames: ["大阪城", "大坂城"]
@@ -74,7 +74,8 @@ let answered = false;
 let sortDragState = null;
 
 function getQuizConfig() {
-  const fileName = window.location.pathname.split("/").pop() || "";
+  const normalizedPath = window.location.pathname.replace(/\/+$/, "");
+  const fileName = (normalizedPath.split("/").pop() || "").replace(/\.html$/, "");
   const matched = QUIZ_PAGE_CONFIGS
     .map((config) => ({ config, match: fileName.match(config.pattern) }))
     .find(({ match }) => match);
