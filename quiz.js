@@ -609,8 +609,7 @@ nextButton.addEventListener("click", () => {
 });
 
 retryButton.addEventListener("click", () => {
-  resetQuiz();
-  window.scrollTo({ top: 0, behavior: "smooth" });
+  window.location.reload();
 });
 
 window.addEventListener("resize", fitDesign);
